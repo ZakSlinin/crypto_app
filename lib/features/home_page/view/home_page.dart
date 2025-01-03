@@ -14,9 +14,13 @@ class _CryptoHomePageState extends State<CryptoHomePage> {
   List<CryptoCoin>? _cryptoCoinsList;
 
   @override
+  void initState() {
+    super.initState();
+    _loadCryptoList();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    const data = ['Bitcoin', 'BNB', 'Toncoin'];
-    const bitcoin = 'Bitcoin';
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -26,21 +30,24 @@ class _CryptoHomePageState extends State<CryptoHomePage> {
           style: theme.textTheme.bodyMedium,
         ),
       ),
-      body: (_cryptoCoinsList == null) ? const SizedBox() :
-      ListView.separated(
-          itemCount: _cryptoCoinsList!.length,
-          separatorBuilder: (context, index) => Divider(),
-          itemBuilder: (context, index) {
-            final coin = _cryptoCoinsList![index];
-            final coinName = coin.name;
-            return HomeCoinsTile(coin: coin,);
-          }),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.update),
-          onPressed: () async {
-            _cryptoCoinsList = await CryptoCoinsRepository().getCoinsList();
-            setState(() {});
-          }),
+      body: (_cryptoCoinsList == null)
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.separated(
+              itemCount: _cryptoCoinsList!.length,
+              separatorBuilder: (context, index) => Divider(),
+              itemBuilder: (context, index) {
+                final coin = _cryptoCoinsList![index];
+                return HomeCoinsTile(
+                  coin: coin,
+                );
+              }),
     );
+  }
+
+  Future<void> _loadCryptoList() async {
+    _cryptoCoinsList = await CryptoCoinsRepository().getCoinsList();
+    setState(() {});
   }
 }
