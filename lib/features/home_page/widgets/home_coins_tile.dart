@@ -15,11 +15,7 @@ class HomeCoinsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme =  Theme.of(context);
     return ListTile(
-      leading: SvgPicture.asset(
-        'assets/svg/bitcoin_logo.svg',
-        height: 55,
-        width: 55,
-      ),
+      leading: Image.network(coin.image),
       title: Text(coin.name, style: theme.textTheme.bodyMedium),
       subtitle: Text('${coin.priceInUSD}\$'),
       trailing: Icon(Icons.arrow_forward_ios),
