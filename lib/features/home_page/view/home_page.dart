@@ -1,6 +1,9 @@
+import 'package:crypto_app/repositories/crypto_coins%20/abstract_coins_repository.dart';
 import 'package:crypto_app/repositories/crypto_coins%20/crypto_coins_repository.dart';
 import 'package:crypto_app/repositories/crypto_coins%20/models/crypto_coin.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import '../widgets/widgets.dart';
 
 class CryptoHomePage extends StatefulWidget {
@@ -47,7 +50,7 @@ class _CryptoHomePageState extends State<CryptoHomePage> {
   }
 
   Future<void> _loadCryptoList() async {
-    _cryptoCoinsList = await CryptoCoinsRepository().getCoinsList();
+    _cryptoCoinsList = await GetIt.I<AbstractCoinsRepository>().getCoinsList();
     setState(() {});
   }
 }

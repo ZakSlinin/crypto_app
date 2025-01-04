@@ -8,7 +8,7 @@ class CoinPage extends StatefulWidget {
 }
 
 class _CoinPageState extends State<CoinPage> {
-  String? coinName;
+  String? coin;
 
   @override
   void didChangeDependencies() {
@@ -24,7 +24,7 @@ class _CoinPageState extends State<CoinPage> {
       return;
     }
 
-    coinName = args;
+    coin = args;
     super.didChangeDependencies();
   }
 
@@ -32,7 +32,7 @@ class _CoinPageState extends State<CoinPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(coinName ?? '...'),
+        title: Text(coin ?? '...'),
       ),
     );
   }
